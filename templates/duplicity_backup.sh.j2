@@ -1,0 +1,21 @@
+#!/bin/bash
+
+KEY="{{ fingerprint.stdout }}"
+export PASSPHRASE="{{ passphrase }}"
+BACKUP_DOC="/"
+REMOTE_SERVER="{{ remote_server_ip }}"
+USER="{{ backup_user }}"
+DEST_DIR="remotedata/`hostname -f`"
+DEST="rsync://$USER@$REMOTE_SERVER/$DEST_DIR"
+
+ssh $USER@$REMOTE_SERVER "mkdir -p $DEST_DIR"
+
+duplicity --encrypt-key $KEY \
+{% for dir in list_exclude_dir %}
+    --exclude={{ dir }} \
+{% endfor %}
+        $BACKUP_DOC \
+        $DEST
+unset PASSPHRASE
+exit 0
+#EOF

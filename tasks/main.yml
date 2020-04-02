@@ -1,0 +1,26 @@
+---
+# tasks file for roles/backup
+- name: Ensure duplicity package present
+  package:
+    name: duplicity
+    state: latest
+  tags: bck
+- name: Get short gpg fingerprint
+  shell: gpg --list-secret-keys | sed '4!d' | tail -c9
+  register: fingerprint
+  tags: bck
+- name: Create backup script
+  template:
+    src: "duplicity_backup.sh.j2"
+    dest: "/root/duplicity_backup.sh"
+    owner: root
+    group: root
+    mode: '0755'
+  tags: bck
+- name: Ensure backup run every days at 3:00 pm
+  cron:
+    name: "backup"
+    minute: "0"
+    hour: "15"
+    job: "/root/duplicity_backup.sh > /dev/null"
+  tags: bck

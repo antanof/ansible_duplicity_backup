@@ -1,0 +1,14 @@
+---
+# vars file for roles/backup
+remote_server_ip: "xxx.xxx.xxx.xxx"
+backup_user: "user"
+passphrase: "pass_in_vault"
+list_exclude_dir:
+  - /proc
+  - /sys
+  - /mnt
+  - /tmp
+  - /dev
+  - /var/spool
+  - /var/cache
+  - /var/tmp
