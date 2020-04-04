@@ -23,7 +23,7 @@
     name: MAILTO
     job: "{{ cron_mail }}"
   tags: bck
-- name: Ensure backup run every days at 1:00 pm with cron
+- name: Ensure backup runs every days at 1:00 pm with cron
   cron:
     name: backup
     minute: "0"
