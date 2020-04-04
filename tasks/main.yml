@@ -17,10 +17,16 @@
     group: root
     mode: '0755'
   tags: bck
-- name: Ensure backup run every days at 3:00 pm
+- name: Ensure send mail after cron job
   cron:
-    name: "backup"
+    env: true
+    name: MAILTO
+    job: "{{ cron_mail }}"
+  tags: bck
+- name: Ensure backup run every days at 3:00 pm with cron
+  cron:
+    name: backup
     minute: "0"
-    hour: "15"
-    job: "/root/duplicity_backup.sh > /dev/null"
+    hour: "1"
+    job: "/root/duplicity_backup.sh 2>&1"
   tags: bck
