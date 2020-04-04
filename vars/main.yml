@@ -1,8 +1,9 @@
 ---
 # vars file for roles/backup
-remote_server_ip: "xxx.xxx.xxx.xxx"
-backup_user: "user"
-passphrase: "pass_in_vault"
+remote_server_ip: "{{ vault_remote_server_ip }}"
+backup_user: "{{ vault_backup_user }}"
+cron_mail: "{{ vault_cron_mail }}"
+passphrase: "{{ vault_passphrase }}"
 list_exclude_dir:
   - /proc
   - /sys
